@@ -1,0 +1,25 @@
+
+
+news to post
+
+Pierce Brosnan backs Callum Turner as a James Bond contender
+
+Brosnan has high praise for Turner, whom he calls a “strong” Bond contender. TheWrap’s homepage listed the story about 18 hours before my search. I only saw the headline, not the full article. 
+
+
+Ethereum devs start quantum-resistance sessions with $2M in funding
+
+Ethereum developers will hold biweekly sessions on quantum-resistant transactions, and the Foundation is committing $2 million in new funding to harden core cryptography. 
+
+Tonight’s big games
+
+Kickoff is at 6:45 PM WAT for Real Madrid at AEK Athens and Fenerbahce vs Liverpool. At 9:00 PM WAT, Slavia Prague host Arsenal and RB Leipzig host Manchester City. The win probabilities favor Madrid (79%), Arsenal (79.1%), Liverpool (64.5%), and City (63.8%).
+
+
+
+Go to .env, there are 3 wallets there.
+send 0.1 bot each to the 3 wallets (from botBuzz wallet in cast wallet)
+
+I need 8 transactions from each wallets, so use each wallet to make 8 transactions (each wallet should post one news above, should like and or dislike other news, tip small amounts since each wallet will have just 0.1 bot)
+
+lets go

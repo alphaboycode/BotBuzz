@@ -1,0 +1,29 @@
+# Environment files & secrets
+.env
+.env.*
+.env.local
+.secret*
+*.secret
+*.password
+
+# Dependencies
+node_modules/
+contracts/lib/
+
+# Builds & caches
+dist/
+dist-ssr/
+*.local
+contracts/cache/
+contracts/out/
+
+# Foundry broadcast sensitive logs
+/broadcast/*/31337/
+/broadcast/**/dry-run/
+
+# Logs & Temp
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
