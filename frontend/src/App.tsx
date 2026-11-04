@@ -9,6 +9,7 @@ import {
 import { contractAddress, botBuzzAbi, botTestnet } from './contracts';
 import { Post, SortMode, ActiveTab, TxStatus } from './types';
 import { shortenAddress, formatRelativeTime, formatBOT } from './utils';
+import appLogo from './assets/logo.jpeg';
 import './App.css';
 
 const publicClient = createPublicClient({
@@ -460,7 +461,7 @@ export const App: React.FC = () => {
       {/* Header */}
       <header className="app-header">
         <div className="header-brand" onClick={() => setActiveTab('news')} style={{ cursor: 'pointer' }}>
-          <span className="logo-icon">🐝</span>
+          <img src={appLogo} alt="BotBuzz" className="app-logo" />
           <h1 className="brand-title">BotBuzz</h1>
           <span className="network-pill">BOT Testnet (968)</span>
         </div>
