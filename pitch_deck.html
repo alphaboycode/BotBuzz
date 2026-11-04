@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BotBuzz Pitch Deck</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    @page {
+      size: 1920px 1080px;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      background-color: #060910;
+      color: #ffffff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .slide {
+      width: 1920px;
+      height: 1080px;
+      page-break-after: always;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 80px 100px;
+      background: radial-gradient(circle at 85% 15%, rgba(245, 158, 11, 0.12) 0%, rgba(6, 9, 16, 1) 70%);
+      overflow: hidden;
+    }
+
+    /* Header & Footer */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slide-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fbbf24;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .slide-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      color: #94a3b8;
+      font-weight: 700;
+    }
+
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 24px;
+      font-size: 15px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 54px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-size: 22px;
+      color: #cbd5e1;
+      line-height: 1.5;
+      max-width: 950px;
+      font-weight: 450;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 36px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 36px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .card {
+      background: #0f172a;
+      border: 1px solid #27354f;
+      border-radius: 20px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .card-highlight {
+      border-color: rgba(245, 158, 11, 0.45);
+      background: linear-gradient(145deg, #152238 0%, #0d1527 100%);
+    }
+
+    .card-icon {
+      font-size: 32px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .card-desc {
+      font-size: 15.5px;
+      color: #e2e8f0;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    /* Badges & Metrics */
+    .metric-value {
+      font-size: 44px;
+      font-weight: 800;
+      color: #fbbf24;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 8px;
+    }
+
+    .metric-label {
+      font-size: 14px;
+      color: #f1f5f9;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .code-block {
+      background: #050811;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #38bdf8;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .badge-live {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #34d399;
+    }
+
+    .pill-info {
+      font-family: 'JetBrains Mono', monospace;
+      background: #172033;
+      border: 1px solid #334155;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #f8fafc;
+      font-weight: 600;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 1: COVER -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">🐝 Protocol Presentation</div>
+      <div class="slide-num">01 / 09</div>
+    </div>
+    <div style="margin-top: -30px;">
+      <div style="font-size: 64px; margin-bottom: 16px;">🐝</div>
+      <h1 style="font-size: 76px; margin-bottom: 24px; color: #ffffff;">BotBuzz</h1>
+      <p class="subtitle" style="font-size: 28px; max-width: 1050px; color: #f1f5f9; font-weight: 500;">
+        The Decentralized Onchain News & Social Tipping Protocol on the BOT Network
+      </p>
+      <div style="display: flex; gap: 20px; margin-top: 48px;">
+        <span class="slide-tag" style="background: rgba(16,185,129,0.2); color: #34d399; border-color: rgba(16,185,129,0.5);">
+          ● Live on BOT Testnet (Chain ID 968)
+        </span>
+        <span class="slide-tag">
+          Pure Solidity ^0.8.24 + OpenZeppelin 5.x
+        </span>
+        <span class="slide-tag">
+          Vite + React + TypeScript + viem
+        </span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div class="footer-brand"><span>🐝</span> BotBuzz Pitch Deck | November 2026</div>
+      <div style="color: #cbd5e1;">https://scan.bohr.life/address/0x8939fd5d0c4e6ab2a1b26222becf809e30b19ae7</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: THE PROBLEM -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Market Friction</div>
+      <div class="slide-num">02 / 09</div>
+    </div>
+    <div>
+      <h1>The Digital News Distribution Crisis</h1>
+      <p class="subtitle">Modern journalism and social commentary suffer from deep centralization bottlenecks.</p>
+      
+      <div class="grid-4">
+        <div class="card">
+          <span class="card-icon">🚫</span>
+          <h3 class="card-title">Censorship & Manipulation</h3>
+          <p class="card-desc">Centralized feeds deplatform independent writers and silently alter discovery algorithms to serve corporate revenue objectives.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">⚡</span>
+          <h3 class="card-title">Fragile "Web3" Storage</h3>
+          <p class="card-desc">Many DApps rely on off-chain IPFS gateways or cloud pinning that break, experience gateway timeout, or disappear permanently.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">💸</span>
+          <h3 class="card-title">Exploitative Monetization</h3>
+          <p class="card-desc">Ad networks extract 30–50% cuts. Authors receive fractions of a penny while readers lack a frictionless, direct micropayment layer.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🤖</span>
+          <h3 class="card-title">Sybil & Clickbait Farms</h3>
+          <p class="card-desc">Without cryptographic provenance or onchain skin-in-the-game, feeds are overwhelmed by synthetic bot farms and low-signal noise.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div class="footer-brand">BotBuzz</div>
+      <div>Problem Identification & Market Context</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: THE SOLUTION -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Product Core</div>
+      <div class="slide-num">03 / 09</div>
+    </div>
+    <div>
+      <h1>The BotBuzz Solution</h1>
+      <p class="subtitle">An unstoppable onchain news board with peer-to-peer economic incentives.</p>
+
+      <div class="grid-3">
+        <div class="card card-highlight">
+          <span class="card-icon">⛓️</span>
+          <h3 class="card-title">100% Onchain Storage</h3>
+          <p class="card-desc">Headlines (1-100 bytes) and descriptions (1-500 bytes) stored directly in smart contract state. No IPFS, no backend servers, zero single points of failure.</p>
+        </div>
+        <div class="card card-highlight">
+          <span class="card-icon">💰</span>
+          <h3 class="card-title">Direct BOT Tipping</h3>
+          <p class="card-desc">Readers tip authors directly in native BOT. The contract takes 0% commission and holds 0 BOT balance. NonReentrant push payments protected by OpenZeppelin.</p>
+        </div>
+        <div class="card card-highlight">
+          <span class="card-icon">📊</span>
+          <h3 class="card-title">Transparent Curation</h3>
+          <p class="card-desc">1 vote per wallet per post (Like: +1, Dislike: -1). Transparent score calculation, dynamic vote switching, and reversible voting with full invariant safety.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div class="footer-brand">BotBuzz</div>
+      <div>Architecture & Value Proposition</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: ARCHITECTURE -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Technical Architecture</div>
+      <div class="slide-num">04 / 09</div>
+    </div>
+    <div>
+      <h1>Smart Contract Engineering</h1>
+      <p class="subtitle">Built with OpenZeppelin 5.x ReentrancyGuard and Checks-Effects-Interactions pattern.</p>
+
+      <div class="grid-2" style="margin-top: 24px;">
+        <div class="code-block">
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+contract BotBuzz is ReentrancyGuard {
+    struct Post {
+        uint256 id;
+        address author;
+        string title;       // 1 - 100 bytes
+        string description; // 1 - 500 bytes
+        uint64 createdAt;
+        uint256 likes;
+        uint256 dislikes;
+        uint256 totalTips;
+    }
+
+    // Direct tip transfer with Reentrancy protection
+    function tip(uint256 postId) external payable nonReentrant {
+        if (msg.value == 0) revert ZeroTipValue();
+        Post storage post = _posts[postId];
+        if (msg.sender == post.author) revert CannotTipOwnPost();
+
+        post.totalTips += msg.value;
+        emit Tipped(postId, msg.sender, post.author, msg.value);
+
+        (bool success, ) = post.author.call{value: msg.value}("");
+        if (!success) revert TipTransferFailed();
+    }
+}</div>
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="card">
+            <h4 style="color: #fbbf24; font-size: 19px; margin-bottom: 8px;">🛡️ Multi-Level Reentrancy Defense</h4>
+            <p class="card-desc">All state mutations (tipping, voting, vote removal) are shielded with OpenZeppelin's ReentrancyGuard, thwarting reentrancy attempts from malicious contracts.</p>
+          </div>
+          <div class="card">
+            <h4 style="color: #38bdf8; font-size: 19px; margin-bottom: 8px;">⚡ Paginated Newest-First Queries</h4>
+            <p class="card-desc"><code style="color: #38bdf8; font-weight: 700;">getPosts(offset, limit)</code> returns newest posts first with full boundary clamp safety, handling zero total, offset out-of-bounds, and zero limit gracefully.</p>
+          </div>
+          <div class="card">
+            <h4 style="color: #34d399; font-size: 19px; margin-bottom: 8px;">🧪 Invariant Fuzz Testing (256 Runs)</h4>
+            <p class="card-desc">Fuzz testing simulates random sequences of 15 actions across 4 distinct voters to mathematically prove likes/dislikes never underflow or desync.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div class="footer-brand">BotBuzz</div>
+      <div>Contracts & Invariant Testing</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: LIVE TRACTION -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Deployment & Traction</div>
+      <div class="slide-num">05 / 09</div>
+    </div>
+    <div>
+      <h1>Live on BOT Testnet (Chain ID 968)</h1>
+      <p class="subtitle">Fully verified smart contract with live onchain activity and transactions.</p>
+
+      <div class="grid-4" style="margin-top: 30px;">
+        <div class="card">
+          <div class="metric-value">5</div>
+          <div class="metric-label">Onchain Posts</div>
+          <p class="card-desc" style="margin-top: 8px; color: #cbd5e1;">Permanent stories stored in contract state.</p>
+        </div>
+        <div class="card">
+          <div class="metric-value">24+</div>
+          <div class="metric-label">Live Transactions</div>
+          <p class="card-desc" style="margin-top: 8px; color: #cbd5e1;">Confirmed posts, votes, switches & tips.</p>
+        </div>
+        <div class="card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Test Suite Pass</div>
+          <p class="card-desc" style="margin-top: 8px; color: #cbd5e1;">23 unit, fuzz, and edge-case tests passed.</p>
+        </div>
+        <div class="card">
+          <div class="metric-value">0%</div>
+          <div class="metric-label">Protocol Fee</div>
+          <p class="card-desc" style="margin-top: 8px; color: #cbd5e1;">100% of tips go directly to post authors.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 24px;">
+        <h4 style="margin-bottom: 14px; color: #ffffff; font-size: 18px;">On-Chain Directory & Verification</h4>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div><strong style="color: #ffffff; font-size: 15px;">Contract Address:</strong> <span class="pill-info">0x8939Fd5d0c4E6aB2A1B26222BECF809e30B19ae7</span> <span class="badge-status badge-live">Verified</span></div>
+          <div><strong style="color: #ffffff; font-size: 15px;">Deployment Tx:</strong> <span class="pill-info">0x043e2c53e52d1595039e9238d149c1ac574915e17270445ebb3039903f6f3ece</span></div>
+          <div><strong style="color: #ffffff; font-size: 15px;">BohrScan Explorer:</strong> <span class="pill-info">https://scan.bohr.life/address/0x8939fd5d0c4e6ab2a1b26222becf809e30b19ae7</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div class="footer-brand">BotBuzz</div>
+      <div>Network Traction & Explorer Verification</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: FRONTEND & UX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">User Experience</div>
+      <div class="slide-num">06 / 09</div>
+    </div>
+    <div>
+      <h1>Modern, Blazing-Fast Frontend</h1>
+      <p class="subtitle">Built with Vite + React 18 + TypeScript + viem. Zero bloated component libraries.</p>
+
+      <div class="grid-3" style="margin-top: 36px;">
+        <div class="card">
+          <span class="card-icon">🗂️</span>
+          <h3 class="card-title">Intuitive Tabbed UX</h3>
+          <p class="card-desc">Instant navigation between <strong>All News</strong> feed and <strong>Post News</strong> publishing interface with live post counter badge.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">✍️</span>
+          <h3 class="card-title">Live Character Counters</h3>
+          <p class="card-desc">Real-time indicators for Title (0/100) and Description (0/500) preventing invalid gas spends before broadcast.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔒</span>
+          <h3 class="card-title">Authorization Guard</h3>
+          <p class="card-desc">Robust account synchronizer prevents RPC 4100 errors, prompting account authorization and switching to BOT Testnet seamlessly.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔥</span>
+          <h3 class="card-title">Multi-Mode Feed Sorting</h3>
+          <p class="card-desc">Switch seamlessly between <strong>Newest</strong>, <strong>Top</strong> (highest net score), and <strong>Most Tipped</strong> stories.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">💎</span>
+          <h3 class="card-title">1-Click Micro-Tipping</h3>
+          <p class="card-desc">Integrated tip popout with quick presets (0.05, 0.1, 0.5, 1 BOT) and author self-tip prevention.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🛡️</span>
+          <h3 class="card-title">Plain Text Security</h3>
+          <p class="card-desc">All user-generated text is rendered as plain escaped text, eliminating XSS and markdown injection attack vectors.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div class="footer-brand">BotBuzz</div>
+      <div>Frontend Architecture & Security</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: MARKET OPPORTUNITY -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Market & Ecosystem Impact</div>
+      <div class="slide-num">07 / 09</div>
+    </div>
+    <div>
+      <h1>Why BotBuzz Matters for BOT Ecosystem</h1>
+      <p class="subtitle">A foundational public utility driving organic token velocity and AI news aggregation.</p>
+
+      <div class="grid-2" style="margin-top: 36px;">
+        <div class="card card-highlight">
+          <h3 class="card-title">🔥 Native BOT Gas & Velocity Driver</h3>
+          <p class="card-desc">Every news creation, upvote, downvote, vote-switch, and tip is an onchain transaction. BotBuzz creates high-frequency micro-utility for the native BOT currency, driving sustainable network fees.</p>
+        </div>
+        <div class="card card-highlight">
+          <h3 class="card-title">🤖 Gateway for Autonomous AI Journalism</h3>
+          <p class="card-desc">AI agents, automated oracles, and intelligence bots can broadcast breaking real-time sports, financial, and governance updates to BotBuzz via programmatic RPC calls, earning autonomous tipping revenue.</p>
+        </div>
+        <div class="card card-highlight">
+          <h3 class="card-title">📢 Protocol Announcement Bulletin</h3>
+          <p class="card-desc">Provides Bohr ecosystem projects an immutable, verifiable, and tamper-proof bulletin board for critical smart contract upgrades, audit releases, and governance decisions.</p>
+        </div>
+        <div class="card card-highlight">
+          <h3 class="card-title">🌍 Censorship-Free Citizen Media</h3>
+          <p class="card-desc">Empowers whistleblowers, independent reporters, and grassroots analysts globally to publish verifiable news that cannot be deleted or silenced by external entities.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div class="footer-brand">BotBuzz</div>
+      <div>Ecosystem Value Creation</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8: ROADMAP -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Strategic Roadmap</div>
+      <div class="slide-num">08 / 09</div>
+    </div>
+    <div>
+      <h1>Product Roadmap</h1>
+      <p class="subtitle">Clear progression from testnet deployment to multi-channel syndication.</p>
+
+      <div class="grid-3" style="margin-top: 40px;">
+        <div class="card" style="border-top: 4px solid #10b981;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="color: #34d399; font-size: 20px;">Phase 1: Delivered</h3>
+            <span class="badge-status badge-live">Complete</span>
+          </div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 15px; color: #f1f5f9; font-weight: 500;">
+            <li><strong style="color: #34d399;">✓</strong> Solidity ^0.8.24 core contract</li>
+            <li><strong style="color: #34d399;">✓</strong> 23 Foundry unit & fuzz tests</li>
+            <li><strong style="color: #34d399;">✓</strong> Deployed to BOT Testnet (968)</li>
+            <li><strong style="color: #34d399;">✓</strong> Verified on BohrScan explorer</li>
+            <li><strong style="color: #34d399;">✓</strong> Single-page dark theme DApp</li>
+            <li><strong style="color: #34d399;">✓</strong> Multi-wallet 24-tx stress test</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-top: 4px solid #f59e0b;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="color: #fbbf24; font-size: 20px;">Phase 2: Mainnet Expansion</h3>
+            <span class="slide-tag" style="font-size: 11px; padding: 4px 10px;">Q1 2027</span>
+          </div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 15px; color: #f1f5f9; font-weight: 500;">
+            <li><strong style="color: #fbbf24;">○</strong> BOT Mainnet deployment (Chain 677)</li>
+            <li><strong style="color: #fbbf24;">○</strong> ENS / .bot author profile resolution</li>
+            <li><strong style="color: #fbbf24;">○</strong> RSS/Atom automated publisher node</li>
+            <li><strong style="color: #fbbf24;">○</strong> Subgraph indexer for trending metrics</li>
+            <li><strong style="color: #fbbf24;">○</strong> Push notification subscriptions</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-top: 4px solid #6366f1;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h3 style="color: #a5b4fc; font-size: 20px;">Phase 3: Protocol Scaling</h3>
+            <span class="slide-tag" style="font-size: 11px; padding: 4px 10px; background: rgba(99,102,241,0.2); border-color: rgba(99,102,241,0.5); color: #a5b4fc;">Q2 2027</span>
+          </div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 15px; color: #f1f5f9; font-weight: 500;">
+            <li><strong style="color: #a5b4fc;">○</strong> Embeddable BotBuzz Widget SDK</li>
+            <li><strong style="color: #a5b4fc;">○</strong> Decentralized tip splitting for teams</li>
+            <li><strong style="color: #a5b4fc;">○</strong> Topic tag registry & search index</li>
+            <li><strong style="color: #a5b4fc;">○</strong> Cross-chain news syndication layer</li>
+            <li><strong style="color: #a5b4fc;">○</strong> Mobile progressive web app (PWA)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div class="footer-brand">BotBuzz</div>
+      <div>Execution Milestones</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 9: CONTACT & LINKS -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Directory & Resources</div>
+      <div class="slide-num">09 / 09</div>
+    </div>
+    <div style="text-align: center; margin: auto 0;">
+      <div style="font-size: 64px; margin-bottom: 16px;">🐝</div>
+      <h1 style="font-size: 62px; margin-bottom: 16px; color: #ffffff;">The Front Page of the BOT Chain</h1>
+      <p class="subtitle" style="margin: 0 auto 40px auto; max-width: 850px; color: #cbd5e1; font-size: 24px;">
+        Empowering global, decentralized, and censorship-resistant news with direct author rewards.
+      </p>
+
+      <div style="display: inline-flex; flex-direction: column; gap: 16px; background: #0f172a; border: 1px solid #334155; padding: 36px 52px; border-radius: 20px; text-align: left; font-size: 18px;">
+        <div><strong style="color: #fbbf24;">Network:</strong> <span style="color: #ffffff; font-weight: 600;">BOT Testnet (Chain ID: 968)</span></div>
+        <div><strong style="color: #fbbf24;">RPC URL:</strong> <span style="color: #38bdf8; font-family: monospace;">https://rpc.bohr.life</span></div>
+        <div><strong style="color: #fbbf24;">Explorer:</strong> <span style="color: #38bdf8; font-family: monospace;">https://scan.bohr.life</span></div>
+        <div><strong style="color: #fbbf24;">Contract:</strong> <span style="color: #ffffff; font-family: monospace; font-weight: 600;">0x8939Fd5d0c4E6aB2A1B26222BECF809e30B19ae7</span></div>
+        <div><strong style="color: #fbbf24;">Local App:</strong> <span style="color: #34d399; font-family: monospace; font-weight: 600;">http://localhost:5173</span></div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div class="footer-brand">🐝 BotBuzz | Decentralized News Protocol</div>
+      <div style="color: #cbd5e1;">https://scan.bohr.life/address/0x8939fd5d0c4e6ab2a1b26222becf809e30b19ae7</div>
+    </div>
+  </section>
+
+</body>
+</html>

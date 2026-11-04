@@ -1,0 +1,222 @@
+================================================================================
+                                 BOTBUZZ
+           The Decentralized Onchain News & Social Tipping Protocol
+                             on the BOT Network
+================================================================================
+
+PITCH DECK | NOVEMBER 2026
+
+--------------------------------------------------------------------------------
+SLIDE 1: COVER & EXECUTIVE SUMMARY
+--------------------------------------------------------------------------------
+Project Name : BotBuzz
+Network      : BOT Testnet (Chain ID: 968)
+RPC Endpoint : https://rpc.bohr.life
+Explorer     : https://scan.bohr.life
+Native Token : BOT (18 Decimals)
+Contract     : 0x8939Fd5d0c4E6aB2A1B26222BECF809e30B19ae7
+Tagline      : Uncensorable, Onchain News with Direct Creator Micropayments
+
+EXECUTIVE SUMMARY:
+BotBuzz is an unstoppable, onchain news publishing and social curation protocol
+engineered natively for the BOT blockchain ecosystem. Built with pure Solidity
+(^0.8.24) and OpenZeppelin 5.x security primitives, BotBuzz eliminates Web2
+gatekeepers, algorithmic newsfeeds, and platform ad-rent seeking.
+
+Every headline and story is preserved directly in smart contract state as plain
+UTF-8 strings—free of external storage, IPFS pinning dependencies, or centralized
+databases. Readers vote in real time (+1/-1 score) and stream native BOT tips
+directly to authors' wallets via gas-optimized, reentrancy-hardened transactions.
+
+--------------------------------------------------------------------------------
+SLIDE 2: THE PROBLEM
+--------------------------------------------------------------------------------
+Current digital media and Web3 content distribution suffer from four critical
+structural failures:
+
+1. Algorithmic Gatekeeping & Censorship:
+   - Centralized platforms (Twitter/X, Reddit, Medium) censor stories, deplatform
+     independent voices, and manipulate discovery algorithms for corporate engagement.
+
+2. Fragile Decentralized Storage:
+   - Existing "decentralized" alternatives rely on IPFS gateways, Arweave bundling,
+     or external indexing nodes that frequently experience broken gateways, pinning
+     expiration, and indexing lag.
+
+3. Broken Creator Monetization:
+   - Content creators receive fractions of pennies from ad networks, while payment
+     processors and platforms extract 30–50% take rates. There is no frictionless,
+     micro-tipping layer embedded directly at the protocol level.
+
+4. Bot Manipulation & Sybil Clickbait:
+   - Without economic stakes or cryptographic identity, legacy newsfeeds are inundated
+     by synthetic engagement farms and unverified rumor mills.
+
+--------------------------------------------------------------------------------
+SLIDE 3: THE SOLUTION - BOTBUZZ
+--------------------------------------------------------------------------------
+BotBuzz provides an immutable, transparent, and direct publishing primitive:
+
+- 100% Fully Onchain Storage:
+  Titles (up to 100 bytes) and descriptions (up to 500 bytes) are permanently
+  stored in Solidity smart contract storage. No IPFS, no cloud servers, no downtime.
+
+- Direct Native BOT Micropayments:
+  Readers send native BOT tips directly into the author's wallet in the same
+  transaction. The contract takes 0% fee, holds 0 BOT, and ensures checks-effects-
+  interactions with OpenZeppelin ReentrancyGuard.
+
+- Cryptographic Curation & Transparent Scoring:
+  One vote per wallet per post (Like = +1, Dislike = -1). Transparent score calculation
+  (`likes - dislikes`) with instant vote switching and counter-balancing removal.
+
+- Zero Protocol Rent-Seeking & No Admin Backdoors:
+  No owner, no upgradeability, no paused state, no administrative controls, and
+  no content moderation backdoors. The news board belongs entirely to the network.
+
+--------------------------------------------------------------------------------
+SLIDE 4: SMART CONTRACT ARCHITECTURE & TECHNICAL INNOVATION
+--------------------------------------------------------------------------------
+Core Protocol Design (`BotBuzz.sol`):
+
+        [ Reader / Tipper ]                 [ Author Wallet ]
+                 |                                  ^
+          tip(postId) {msg.value}                   |
+                 |                       direct ETH/BOT transfer
+                 v                                  |
+      +---------------------------------------------+-----+
+      |                       BotBuzz                     |
+      |---------------------------------------------------|
+      |  struct Post {                                    |
+      |    uint256 id;                                    |
+      |    address author;                                |
+      |    string title;       (1 - 100 bytes validated)  |
+      |    string description; (1 - 500 bytes validated)  |
+      |    uint64 createdAt;   (block.timestamp)          |
+      |    uint256 likes;                                 |
+      |    uint256 dislikes;                              |
+      |    uint256 totalTips;                             |
+      |  }                                                |
+      |                                                   |
+      |  ReentrancyGuard (OpenZeppelin 5.x)               |
+      |  Checks-Effects-Interactions                      |
+      |  Paginated View: getPosts(offset, limit)          |
+      |  No receive() / No fallback() (Never holds BOT)   |
+      +---------------------------------------------------+
+                 ^
+                 | like(id) / dislike(id) / removeVote(id)
+                 |
+          [ Voter / User ]
+
+Key Technical Specifications:
+- Framework: Foundry (Solidity ^0.8.24)
+- Security: OpenZeppelin ReentrancyGuard on all state-mutating functions
+- Custom Errors: Gas-optimized errors (InvalidTitleLength, AlreadyVoted, etc.)
+- Invariant Fuzz Testing: 256 fuzz runs with 15 random voting sequences per run;
+  guarantees likes and dislikes strictly equal recorded voter mappings and never underflow.
+- Comprehensive Unit Tests: 23 passing tests covering boundaries, reentrancy attacks,
+  rejecting authors, and pagination edge cases.
+
+--------------------------------------------------------------------------------
+SLIDE 5: LIVE TRACTION & ON-CHAIN ACTIVITY
+--------------------------------------------------------------------------------
+BotBuzz is fully deployed, verified, and battle-tested on the BOT Testnet (Chain ID 968):
+
+CONTRACT DIRECTORY:
+- BotBuzz Contract Address:
+  0x8939Fd5d0c4E6aB2A1B26222BECF809e30B19ae7
+- Explorer Verification:
+  https://scan.bohr.life/address/0x8939fd5d0c4e6ab2a1b26222becf809e30b19ae7
+- Deployment Transaction:
+  0x043e2c53e52d1595039e9238d149c1ac574915e17270445ebb3039903f6f3ece
+
+VERIFIED ONCHAIN ACTIVITY:
+- 5 live news posts published by distinct network participants.
+- 24+ consecutive onchain transactions confirmed (post creations, likes, dislikes,
+  vote removals, and direct native tips).
+- Multi-wallet test successfully completed across 3 dedicated community wallets,
+  demonstrating zero transaction failures and seamless state updates.
+
+--------------------------------------------------------------------------------
+SLIDE 6: PRODUCT EXPERIENCE & FRONTEND
+--------------------------------------------------------------------------------
+High-performance, responsive single-page application built with zero UI bloat:
+- Tech Stack: Vite + React 18 + TypeScript + viem
+- Theme: Elegant, high-contrast dark mode with amber/gold BOT network accents.
+- Tabbed Navigation:
+  * "All News" Tab: Full feed with post counter, sorting, voting, and tip actions.
+  * "Post News" Tab: Dedicated writing interface with live character counters
+    (Title: 0/100, Description: 0/500) and automatic validation.
+- Feed Sorting Controls:
+  * "Newest": Chronological descending order.
+  * "Top": Ranked by net score (`likes - dislikes`).
+  * "Most Tipped": Ranked by cumulative BOT tips earned.
+- Wallet Authorization Guard:
+  * Automatic detection of active MetaMask accounts.
+  * Dynamic network addition/switching for BOT Testnet (`Chain ID 968`).
+  * Explicit account verification prevents RPC 4100 authorization mismatches.
+- Plain-Text Security: Strict escaping of all user input to eliminate XSS risks.
+
+--------------------------------------------------------------------------------
+SLIDE 7: MARKET OPPORTUNITY & ECOSYSTEM IMPACT
+--------------------------------------------------------------------------------
+Why BotBuzz is a Core Catalyst for the BOT Ecosystem:
+
+1. Native Utility & Gas Consumption:
+   Drives organic transaction volume and native BOT gas consumption through
+   active micro-interactions (publishing, voting, micro-tipping).
+
+2. Foundation for AI Agent Journalism:
+   Autonomous AI agents (e.g., news summarizing bots, sports feed bots, onchain
+   analysts) can broadcast real-time verifiable intelligence directly onchain
+   and earn automated tips.
+
+3. Trustless Information Layer:
+   Serves as an immutable news bulletin board for protocol announcements,
+   governance proposals, hack alerts, and ecosystem events.
+
+4. Zero Middleman Economy:
+   Pioneers a direct peer-to-peer creator economy where 100% of tipped value
+   reaches content creators with zero platform cuts.
+
+--------------------------------------------------------------------------------
+SLIDE 8: STRATEGIC ROADMAP
+--------------------------------------------------------------------------------
+PHASE 1 (Q4 2026) - FOUNDATION & TESTNET LAUNCH [COMPLETED]
+[x] Architecture & Solidity 0.8.24 contract with OpenZeppelin 5.x
+[x] 23-test Foundry test suite (unit + invariant fuzzing)
+[x] Broadcasted deployment to BOT Testnet (Chain ID 968)
+[x] Contract verification on BohrScan Blockscout explorer
+[x] Fast Vite + React + TS + viem frontend with tabbed navigation
+[x] Stress-tested with 24 multi-wallet transactions across 3 wallets
+
+PHASE 2 (Q1 2027) - MAINNET EXPANSION & INTEGRATION
+[ ] BOT Mainnet deployment and liquidity integration
+[ ] ENS / .bot domain name resolution for author identities
+[ ] Automated RSS/Atom feed ingestion for verified partner nodes
+[ ] Subgraph / The Graph indexing for historical trend analytics
+
+PHASE 3 (Q2 2027) - DECENTRALIZED PROTOCOL SCALING
+[ ] BotBuzz SDK for seamless dApp embedded news widgets
+[ ] Community tag-based category filtering
+[ ] Decentralized tip-splitting for collaborative reporting
+[ ] Cross-chain news broadcasting via decentralized messaging protocols
+
+--------------------------------------------------------------------------------
+SLIDE 9: REPOSITORY DIRECTORY & NETWORK DETAILS
+--------------------------------------------------------------------------------
+Network Details:
+- Chain Name       : BOT Testnet
+- Chain ID         : 968
+- RPC Endpoint     : https://rpc.bohr.life
+- Native Token     : BOT (18 decimals)
+- Block Explorer   : https://scan.bohr.life
+
+Project Directory:
+- Smart Contract   : contracts/src/BotBuzz.sol
+- Contract Test    : contracts/test/BotBuzz.t.sol
+- Frontend DApp    : frontend/src/App.tsx
+- Local Dev Server : http://localhost:5173
+
+BotBuzz — The Front Page of the Decentralized Web.
+================================================================================
