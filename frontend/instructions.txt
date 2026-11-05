@@ -17,6 +17,39 @@ Kickoff is at 6:45 PM WAT for Real Madrid at AEK Athens and Fenerbahce vs Liverp
 
 
 
+
+Now deploy on botchain mainnet
+
+Main net
+Chain ID：677
+
+RPC：https://rpc.botchain.ai
+
+Native Token：BOT
+
+Total Supply：150 Million
+
+Explorer：https://scan.botchain.ai
+
+use the botBuzz wallet from cast wallet, check .env for PASSWORD
+
+
+Now add these in the footer 
+
+Proof on bot mainnet 
+Chain id: 677
+Contract: deployed contract address
+
+BOT Chain Website (make it a hyperlink) https://www.botchain.ai/en/
+
+BOTScan explorer (make it a hyperlink) https://scan.botchain.ai/
+
+use the botBuzz wallet from cast wallet, check .env for PASSWORD
+
+
+
+
+
 Go to .env, there are 3 wallets there.
 send 0.1 bot each to the 3 wallets (from botBuzz wallet in cast wallet)
 

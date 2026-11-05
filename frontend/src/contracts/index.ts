@@ -1,6 +1,6 @@
 import addressData from './address.json';
 import { botBuzzAbi } from './abi';
-import { botTestnet } from './chain';
+import { botMainnet, botTestnet } from './chain';
 
 export const contractAddress = addressData.address as `0x${string}`;
-export { botBuzzAbi, botTestnet };
+export { botBuzzAbi, botMainnet, botTestnet };

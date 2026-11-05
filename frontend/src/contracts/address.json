@@ -1,5 +1,14 @@
 {
   "address": "0x8939Fd5d0c4E6aB2A1B26222BECF809e30B19ae7",
-  "chainId": 968,
-  "network": "BOT Testnet"
+  "chainId": 677,
+  "network": "BOT Mainnet",
+  "rpcUrl": "https://rpc.botchain.ai",
+  "explorer": "https://scan.botchain.ai",
+  "testnet": {
+    "address": "0x8939Fd5d0c4E6aB2A1B26222BECF809e30B19ae7",
+    "chainId": 968,
+    "network": "BOT Testnet",
+    "rpcUrl": "https://rpc.bohr.life",
+    "explorer": "https://scan.bohr.life"
+  }
 }

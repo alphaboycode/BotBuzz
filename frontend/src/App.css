@@ -695,19 +695,101 @@ body {
   margin-top: auto;
   border-top: 1px solid var(--border-color);
   background-color: var(--bg-card);
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--text-dim);
-}
-
-.app-footer a {
+  padding: 2rem 1.5rem;
+  font-size: 0.9rem;
   color: var(--text-muted);
-  text-decoration: underline;
 }
 
-.contract-address-info {
-  margin-top: 0.35rem;
-  font-family: monospace;
+.footer-content {
+  max-width: 840px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.footer-proof-box {
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.footer-proof-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  padding: 0.3rem 0.9rem;
+  border-radius: 9999px;
   font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.footer-proof-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  color: var(--text-main);
+}
+
+.footer-sep {
+  color: var(--border-color);
+}
+
+.footer-contract-link {
+  color: #38bdf8 !important;
+  font-family: monospace;
+  font-size: 0.85rem;
+  word-break: break-all;
+  text-decoration: none !important;
+}
+
+.footer-contract-link:hover {
+  color: #7dd3fc !important;
+  text-decoration: underline !important;
+}
+
+.footer-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.footer-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main) !important;
+  padding: 0.5rem 1.1rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+
+.footer-nav-pill:hover {
+  background: var(--border-color);
+  border-color: var(--primary);
+  color: var(--primary) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }

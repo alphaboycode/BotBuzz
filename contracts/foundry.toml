@@ -6,3 +6,4 @@ solc_version = "0.8.24"
 
 [rpc_endpoints]
 bot_testnet = "https://rpc.bohr.life"
+bot_mainnet = "https://rpc.botchain.ai"

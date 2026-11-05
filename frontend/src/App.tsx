@@ -6,15 +6,15 @@ import {
   http,
   parseEther,
 } from 'viem';
-import { contractAddress, botBuzzAbi, botTestnet } from './contracts';
+import { contractAddress, botBuzzAbi, botMainnet, botTestnet } from './contracts';
 import { Post, SortMode, ActiveTab, TxStatus } from './types';
 import { shortenAddress, formatRelativeTime, formatBOT } from './utils';
 import appLogo from './assets/logo.jpeg';
 import './App.css';
 
 const publicClient = createPublicClient({
-  chain: botTestnet,
-  transport: http('https://rpc.bohr.life'),
+  chain: botMainnet,
+  transport: http('https://rpc.botchain.ai'),
 });
 
 export const App: React.FC = () => {
@@ -46,86 +46,41 @@ export const App: React.FC = () => {
   // Transaction state
   const [txStatus, setTxStatus] = useState<TxStatus>({ state: 'idle' });
 
-  const isCorrectChain = chainId === botTestnet.id;
+  const isCorrectChain = chainId === botMainnet.id || chainId === botTestnet.id;
+  const explorerBaseUrl = chainId === botTestnet.id ? 'https://scan.bohr.life' : 'https://scan.botchain.ai';
 
-  // Initialize wallet if already connected without popping modal
-  const checkConnection = useCallback(async () => {
-    if (typeof window === 'undefined' || !window.ethereum) return;
-
-    try {
-      const accounts: string[] = await window.ethereum.request({ method: 'eth_accounts' });
-      if (accounts && accounts.length > 0) {
-        setAccount(accounts[0] as `0x${string}`);
-      } else {
-        setAccount(null);
-      }
-
-      const currentChainIdHex = await window.ethereum.request({ method: 'eth_chainId' });
-      setChainId(parseInt(currentChainIdHex, 16));
-    } catch (err) {
-      console.error('Error checking wallet connection:', err);
-    }
-  }, []);
-
-  useEffect(() => {
-    checkConnection();
-
-    if (window.ethereum) {
-      const handleAccountsChanged = (accounts: string[]) => {
-        if (accounts.length > 0) {
-          setAccount(accounts[0] as `0x${string}`);
-        } else {
-          setAccount(null);
-        }
-      };
-
-      const handleChainChanged = (hexChainId: string) => {
-        setChainId(parseInt(hexChainId, 16));
-      };
-
-      window.ethereum.on('accountsChanged', handleAccountsChanged);
-      window.ethereum.on('chainChanged', handleChainChanged);
-
-      return () => {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-        window.ethereum.removeListener('chainChanged', handleChainChanged);
-      };
-    }
-  }, [checkConnection]);
-
-  // Add / Switch network action
-  const switchToBotTestnet = async () => {
+  // Add / Switch network action to BOT Mainnet
+  const switchToBotMainnet = async () => {
     if (!window.ethereum) return;
 
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x3c8' }], // 968 in hex
+        params: [{ chainId: '0x2a5' }], // 677 in hex
       });
-      setChainId(968);
+      setChainId(677);
     } catch (switchError: any) {
-      // 4902 means the chain has not been added to MetaMask
       if (switchError.code === 4902 || switchError?.data?.originalError?.code === 4902) {
         try {
           await window.ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [
               {
-                chainId: '0x3c8',
-                chainName: 'BOT Testnet',
+                chainId: '0x2a5',
+                chainName: 'BOT Mainnet',
                 nativeCurrency: {
                   name: 'BOT',
                   symbol: 'BOT',
                   decimals: 18,
                 },
-                rpcUrls: ['https://rpc.bohr.life'],
-                blockExplorerUrls: ['https://scan.bohr.life'],
+                rpcUrls: ['https://rpc.botchain.ai'],
+                blockExplorerUrls: ['https://scan.botchain.ai'],
               },
             ],
           });
-          setChainId(968);
+          setChainId(677);
         } catch (addError) {
-          console.error('Failed to add BOT Testnet:', addError);
+          console.error('Failed to add BOT Mainnet:', addError);
         }
       } else {
         console.error('Failed to switch network:', switchError);
@@ -139,7 +94,6 @@ export const App: React.FC = () => {
       throw new Error('Please install MetaMask or another Web3 wallet.');
     }
 
-    // Always explicitly request/confirm account authorization
     const accounts: string[] = await window.ethereum.request({
       method: 'eth_requestAccounts',
     });
@@ -156,17 +110,18 @@ export const App: React.FC = () => {
     const currentChain = parseInt(currentChainHex, 16);
     setChainId(currentChain);
 
-    if (currentChain !== botTestnet.id) {
-      await switchToBotTestnet();
+    if (currentChain !== botMainnet.id && currentChain !== botTestnet.id) {
+      await switchToBotMainnet();
     }
 
+    const target = currentChain === botTestnet.id ? botTestnet : botMainnet;
     const client = createWalletClient({
       account: activeAccount,
-      chain: botTestnet,
+      chain: target,
       transport: custom(window.ethereum),
     });
 
-    return { client, account: activeAccount };
+    return { client, account: activeAccount, chain: target };
   };
 
   // Connect wallet action
@@ -266,9 +221,9 @@ export const App: React.FC = () => {
     setTxStatus({ state: 'pending', message: 'Authorizing wallet and preparing transaction...' });
 
     try {
-      const { client, account: activeAccount } = await getAuthorizedWalletClient();
+      const { client, account: activeAccount, chain: targetChain } = await getAuthorizedWalletClient();
 
-      setTxStatus({ state: 'pending', message: 'Submitting news post to BOT Testnet...' });
+      setTxStatus({ state: 'pending', message: 'Submitting news post to BOT blockchain...' });
 
       const hash = await client.writeContract({
         address: contractAddress,
@@ -276,7 +231,7 @@ export const App: React.FC = () => {
         functionName: 'createPost',
         args: [trimmedTitle, trimmedDesc],
         account: activeAccount,
-        chain: botTestnet,
+        chain: targetChain,
       });
 
       setTxStatus({
@@ -321,7 +276,7 @@ export const App: React.FC = () => {
     setTxStatus({ state: 'pending', message: actionLabel });
 
     try {
-      const { client, account: activeAccount } = await getAuthorizedWalletClient();
+      const { client, account: activeAccount, chain: targetChain } = await getAuthorizedWalletClient();
 
       let hash: `0x${string}`;
       if (isRemoving) {
@@ -331,7 +286,7 @@ export const App: React.FC = () => {
           functionName: 'removeVote',
           args: [postId],
           account: activeAccount,
-          chain: botTestnet,
+          chain: targetChain,
         });
       } else if (voteType === 1) {
         hash = await client.writeContract({
@@ -340,7 +295,7 @@ export const App: React.FC = () => {
           functionName: 'like',
           args: [postId],
           account: activeAccount,
-          chain: botTestnet,
+          chain: targetChain,
         });
       } else {
         hash = await client.writeContract({
@@ -349,7 +304,7 @@ export const App: React.FC = () => {
           functionName: 'dislike',
           args: [postId],
           account: activeAccount,
-          chain: botTestnet,
+          chain: targetChain,
         });
       }
 
@@ -388,7 +343,7 @@ export const App: React.FC = () => {
     setTxStatus({ state: 'pending', message: `Sending ${tipAmount} BOT tip to author...` });
 
     try {
-      const { client, account: activeAccount } = await getAuthorizedWalletClient();
+      const { client, account: activeAccount, chain: targetChain } = await getAuthorizedWalletClient();
 
       const hash = await client.writeContract({
         address: contractAddress,
@@ -397,7 +352,7 @@ export const App: React.FC = () => {
         args: [postId],
         value: parseEther(tipAmount),
         account: activeAccount,
-        chain: botTestnet,
+        chain: targetChain,
       });
 
       setTxStatus({
@@ -463,15 +418,17 @@ export const App: React.FC = () => {
         <div className="header-brand" onClick={() => setActiveTab('news')} style={{ cursor: 'pointer' }}>
           <img src={appLogo} alt="BotBuzz" className="app-logo" />
           <h1 className="brand-title">BotBuzz</h1>
-          <span className="network-pill">BOT Testnet (968)</span>
+          <span className="network-pill">
+            {chainId === 968 ? 'BOT Testnet (968)' : 'BOT Mainnet (677)'}
+          </span>
         </div>
 
         <div className="header-actions">
           {account ? (
             <div className="account-controls">
               {!isCorrectChain ? (
-                <button className="btn btn-warning" onClick={switchToBotTestnet}>
-                  ⚠️ Switch to BOT Testnet
+                <button className="btn btn-warning" onClick={switchToBotMainnet}>
+                  ⚠️ Switch to BOT Mainnet
                 </button>
               ) : (
                 <span className="chain-status-badge">● Connected</span>
@@ -491,9 +448,9 @@ export const App: React.FC = () => {
       {/* Network warning banner */}
       {account && !isCorrectChain && (
         <div className="network-banner">
-          <span>Your wallet is not connected to BOT Testnet (Chain ID 968).</span>
-          <button className="btn btn-sm btn-warning" onClick={switchToBotTestnet}>
-            Switch Network
+          <span>Your wallet is not connected to BOT Mainnet (Chain ID 677).</span>
+          <button className="btn btn-sm btn-warning" onClick={switchToBotMainnet}>
+            Switch to BOT Mainnet
           </button>
         </div>
       )}
@@ -508,7 +465,7 @@ export const App: React.FC = () => {
             <span className="tx-message">{txStatus.message}</span>
             {txStatus.hash && (
               <a
-                href={`https://scan.bohr.life/tx/${txStatus.hash}`}
+                href={`${explorerBaseUrl}/tx/${txStatus.hash}`}
                 target="_blank"
                 rel="noreferrer"
                 className="tx-link"
@@ -822,19 +779,44 @@ export const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="app-footer">
-        <p>
-          BotBuzz on <a href="https://scan.bohr.life/" target="_blank" rel="noreferrer">BOT Testnet (Chain ID 968)</a>
-        </p>
-        <p className="contract-address-info">
-          Contract:{' '}
-          <a
-            href={`https://scan.bohr.life/address/${contractAddress}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {contractAddress}
-          </a>
-        </p>
+        <div className="footer-content">
+          <div className="footer-proof-box">
+            <span className="footer-proof-tag">🟢 Proof on bot mainnet</span>
+            <div className="footer-proof-details">
+              <span><strong>Chain ID:</strong> 677</span>
+              <span className="footer-sep">•</span>
+              <span>
+                <strong>Contract:</strong>{' '}
+                <a
+                  href={`https://scan.botchain.ai/address/${contractAddress}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="footer-contract-link"
+                >
+                  {contractAddress}
+                </a>
+              </span>
+            </div>
+          </div>
+          <div className="footer-nav-links">
+            <a
+              href="https://www.botchain.ai/en/"
+              target="_blank"
+              rel="noreferrer"
+              className="footer-nav-pill"
+            >
+              🌐 BOT Chain Website
+            </a>
+            <a
+              href="https://scan.botchain.ai/"
+              target="_blank"
+              rel="noreferrer"
+              className="footer-nav-pill"
+            >
+              🔍 BOTScan explorer
+            </a>
+          </div>
+        </div>
       </footer>
     </div>
   );
