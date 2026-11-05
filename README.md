@@ -8,6 +8,18 @@ BotBuzz stores all news items, community votes, and tips directly onchain. Anyon
 
 ## 🌐 Network Information
 
+### BOT Mainnet
+| Property | Details |
+| :--- | :--- |
+| **Network Name** | BOT Mainnet |
+| **Chain ID** | `677` |
+| **RPC Endpoint** | `https://rpc.botchain.ai` |
+| **Native Token** | BOT (18 decimals) |
+| **Total Supply** | 150 Million |
+| **Official Website** | [https://www.botchain.ai/en/](https://www.botchain.ai/en/) |
+| **Block Explorer** | [https://scan.botchain.ai/](https://scan.botchain.ai/) |
+
+### BOT Testnet
 | Property | Details |
 | :--- | :--- |
 | **Network Name** | BOT Testnet |
@@ -18,12 +30,17 @@ BotBuzz stores all news items, community votes, and tips directly onchain. Anyon
 
 ---
 
-## 🚀 Deployed Contract
+## 🚀 Deployed Contracts
 
+### Mainnet (Chain ID 677)
+- **Contract Name**: `BotBuzz`
+- **Contract Address**: [`0x8939Fd5d0c4E6aB2A1B26222BECF809e30B19ae7`](https://scan.botchain.ai/address/0x8939Fd5d0c4E6aB2A1B26222BECF809e30B19ae7)
+- **Deployment Transaction**: [`0x42434f6046af450ecfb49fead67416a58a224e248482ea492a2ef7813838722b`](https://scan.botchain.ai/tx/0x42434f6046af450ecfb49fead67416a58a224e248482ea492a2ef7813838722b)
+
+### Testnet (Chain ID 968)
 - **Contract Name**: `BotBuzz`
 - **Contract Address**: [`0x8939Fd5d0c4E6aB2A1B26222BECF809e30B19ae7`](https://scan.bohr.life/address/0x8939fd5d0c4e6ab2a1b26222becf809e30b19ae7)
 - **Deployment Transaction**: [`0x043e2c53e52d1595039e9238d149c1ac574915e17270445ebb3039903f6f3ece`](https://scan.bohr.life/tx/0x043e2c53e52d1595039e9238d149c1ac574915e17270445ebb3039903f6f3ece)
-- **Verification Status**: Submitted and accepted on BohrScan blockscout (`GUID: 8939fd5d0c4e6ab2a1b26222becf809e30b19ae76aeb502b`)
 
 ---
 
