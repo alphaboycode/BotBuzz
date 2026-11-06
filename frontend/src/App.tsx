@@ -10,6 +10,7 @@ import { contractAddress, botBuzzAbi, botMainnet, botTestnet } from './contracts
 import { Post, SortMode, ActiveTab, TxStatus } from './types';
 import { shortenAddress, formatRelativeTime, formatBOT } from './utils';
 import appLogo from './assets/logo.jpeg';
+import botLogo from './assets/bot-logo.svg';
 import './App.css';
 
 const publicClient = createPublicClient({
@@ -798,23 +799,61 @@ export const App: React.FC = () => {
               </span>
             </div>
           </div>
-          <div className="footer-nav-links">
-            <a
-              href="https://www.botchain.ai/en/"
-              target="_blank"
-              rel="noreferrer"
-              className="footer-nav-pill"
-            >
-              🌐 BOT Chain Website
-            </a>
-            <a
-              href="https://scan.botchain.ai/"
-              target="_blank"
-              rel="noreferrer"
-              className="footer-nav-pill"
-            >
-              🔍 BOTScan explorer
-            </a>
+          {/* Part of the Ecosystem Section */}
+          <div className="ecosystem-section">
+            <div className="ecosystem-header-label">PART OF THE ECOSYSTEM</div>
+
+            <div className="ecosystem-logo-circle">
+              <img src={botLogo} alt="BOT Chain Logo" className="ecosystem-logo" />
+            </div>
+
+            <h3 className="ecosystem-title">
+              <span className="ecosystem-title-bot">BOT</span>
+              <span className="ecosystem-title-chain"> Chain</span>
+            </h3>
+
+            <p className="ecosystem-tagline">
+              Decentralized news, community curated, tipped on chain
+            </p>
+
+            <div className="ecosystem-divider">
+              <span className="ecosystem-divider-line" />
+              <span className="ecosystem-divider-diamond">◆</span>
+              <span className="ecosystem-divider-line" />
+            </div>
+
+            <div className="ecosystem-links">
+              <a
+                href="https://www.botchain.ai/en/"
+                target="_blank"
+                rel="noreferrer"
+                className="ecosystem-link"
+              >
+                <svg className="ecosystem-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+                <span>botchain.ai</span>
+              </a>
+
+              <a
+                href="https://scan.botchain.ai/"
+                target="_blank"
+                rel="noreferrer"
+                className="ecosystem-link"
+              >
+                <svg className="ecosystem-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <span>Explorer</span>
+              </a>
+            </div>
+
+            <div className="ecosystem-copyright">
+              © 2026 <strong>BOT Chain</strong> · Mainnet · Chain ID <strong>677</strong>
+            </div>
           </div>
         </div>
       </footer>

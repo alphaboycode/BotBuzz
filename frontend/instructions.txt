@@ -31,10 +31,16 @@ Total Supply：150 Million
 
 Explorer：https://scan.botchain.ai
 
+verify the deployed contract
+
+
+
 use the botBuzz wallet from cast wallet, check .env for PASSWORD
 
 
 Now add these in the footer 
+
+section 1
 
 Proof on bot mainnet 
 Chain id: 677
@@ -44,9 +50,16 @@ BOT Chain Website (make it a hyperlink) https://www.botchain.ai/en/
 
 BOTScan explorer (make it a hyperlink) https://scan.botchain.ai/
 
+section 2
+
+add the part of the ecosystem section in the footer like in the image part-of-ecosystem.jpeg in ~/Documents/dev/botchain, but dont include github. The bot logo botchainlogo.png is also in ~/Documents/dev/botchain, u can convert it from .png to svg or whatever, so the logo background becomes transparent and takes the background of our app. please dont change our background colour, use our colour scheme.
+dont say "Tipped, thanked, on chain," think of a tagline from our project and use it
+
+
+
+
+
 use the botBuzz wallet from cast wallet, check .env for PASSWORD
-
-
 
 
 
